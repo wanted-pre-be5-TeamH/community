@@ -9,7 +9,7 @@
 
 1-3) ORM : TypeORM
 
-1-4) Unit Test : Swagger 활용
+1-4) API Document : Swagger
 
 
 ## 2. 에러 트러블 슈팅
