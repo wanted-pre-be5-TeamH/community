@@ -27,11 +27,11 @@ export class AuthController {
         // if(dto.name){
         //     //..dto.name이 null이 아닐때 수행..
         // }
-        return this.authService.signup();
+        return this.authService.signup(dto);
     }
 
     @Post('signin')
-    signin() {
-        return this.authService.signin();
+    signin(@Body() dto:AuthDto) {
+        return this.authService.signin(dto);
     }
 }
