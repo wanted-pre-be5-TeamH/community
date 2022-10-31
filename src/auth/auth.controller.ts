@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from "@nestjs/common";
+import { Body, Controller, HttpCode, HttpStatus, Param, Patch, Post, Req } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto/auth.dto";
 
@@ -18,7 +18,7 @@ export class AuthController {
     // }
 
     @Post('signup')
-    signup(@Body() dto:AuthDto) {
+    signup(@Body() dto: AuthDto) {
         console.log({
             dto,
         })
@@ -30,8 +30,15 @@ export class AuthController {
         return this.authService.signup(dto);
     }
 
+    //HttpCode Decorator로 response status를 관리자가 변경할 수 있음(보안?)
+    @HttpCode(HttpStatus.OK) // 201 Created -> 200 OK
     @Post('signin')
-    signin(@Body() dto:AuthDto) {
+    signin(@Body() dto: AuthDto) {
         return this.authService.signin(dto);
+    }
+
+    @Patch('delete/:id')
+    deleteAccount(@Param('id') email: string) {
+        return this.authService.deleteAccount(email);
     }
 }

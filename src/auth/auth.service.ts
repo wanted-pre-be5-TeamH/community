@@ -19,6 +19,7 @@ export class AuthService {
 
     }
 
+    // REST API 기능 1. 회원 가입
     async signup(dto: AuthDto) {
         // generate the password hash
         const hash = await argon.hash(dto.password);
@@ -27,7 +28,13 @@ export class AuthService {
             const user = await this.prisma.user.create({
                 data: {
                     email: dto.email,
-                    hash,
+                    hash : hash,
+                    name : dto.name,
+                    grade : dto.grade,
+                    sex : dto.sex,
+                    age: parseInt(dto.age),
+                    phone : dto.phone,
+                    isDeleted: false,
                 },
             })
             // delete user.hash;
@@ -47,6 +54,7 @@ export class AuthService {
         }
     }
 
+    // REST API 기능 2. 로그인
     async signin(dto: AuthDto) {
         // find the user by email
         const user = await this.prisma.user.findUnique({
@@ -88,4 +96,23 @@ export class AuthService {
         }
     }
 
+    // REST API 기능 3. 회원 탈퇴
+    async deleteAccount(email: string) {
+        try {
+            const user = await this.prisma.user.update({
+                where: {
+                    email: email,
+                },
+                data: {
+                    isDeleted: true,
+                },
+            })
+            return user;
+        } catch (err) {
+            if (err instanceof PrismaClientKnownRequestError) {
+                console.log(`Delete Account Err : ${err}`)
+            }
+            throw err;
+        }
+    }
 }
