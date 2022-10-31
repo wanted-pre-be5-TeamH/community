@@ -1,9 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { Request } from 'express';
-import { GetUser } from 'src/auth/decorator/get-user.decorator';
-import { AuthDto } from 'src/auth/dto';
-import { JwtGuard } from 'src/auth/guard';
+import { GetUser } from '../auth/decorator/get-user.decorator';
+import { JwtGuard } from '../auth/guard';//'src/auth/guard';
 import { PostingDto } from './dto/posting.dto';
 import { UserService } from './user.service';
 
@@ -31,19 +29,19 @@ export class UserController {
         return user;
     }
 
-    // @Post('createPosting')
-    // createPosting(
-    //     @GetUser('id') userId: number,
-    //     @Body() dto: PostingDto
-    // ) {
-    //     return this.userService.createPosting(userId, dto);
-    // }
+    @Post('createPosting')
+    createPosting(
+        @GetUser('id') userId: number,
+        @Body() dto: PostingDto
+    ) {
+        return this.userService.createPosting(userId, dto);
+    }
 
-    // @Get(':id')
-    // getPostingById(
-    //     @GetUser('id') userId: number,
-    //     @Param('id') id: number
-    // ) {
-    //     return this.userService.getPostingById(userId, id);
-    // }
+    @Get(':id')
+    getPostingById(
+        @GetUser('id') userId: number,
+        @Param('id') id: number
+    ) {
+        return this.userService.getPostingById(userId, id);
+    }
 }

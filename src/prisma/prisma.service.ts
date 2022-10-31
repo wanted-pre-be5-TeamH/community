@@ -15,4 +15,12 @@ export class PrismaService extends PrismaClient {
             }
         })
     }
+
+    // e2e 테스트 시, db 클리어
+    cleanDb() {
+        return this.$transaction([
+            this.user.deleteMany(),
+            this.board.deleteMany(),
+        ])
+    }
 }
