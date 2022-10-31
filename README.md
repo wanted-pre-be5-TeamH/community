@@ -6,15 +6,13 @@
 ## 백엔드 프로젝트 구성
 
 1) 서버 : Nestjs
-
 2) DB : PostgreSQL (Docker)
-
 3) ORM : Prisma
-
 4) Unit Test : Pactum
 
+## ERD 설계
+-
 
-## API 명세
 ## API 명세
 
 | INDEX | METHOD | URI | DESCRIPTION | REMARK |
